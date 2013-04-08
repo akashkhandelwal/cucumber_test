@@ -13,8 +13,6 @@ require 'capybara'
 Bundler.setup
 Bundler.require
 
-ap "-"*1000
-
 Before('@ignore-hidden-elements') do
   Capybara.ignore_hidden_elements = true
 end
