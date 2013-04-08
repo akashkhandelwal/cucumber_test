@@ -1,22 +1,24 @@
-When(/^I go to Home Page$/) do
-  visit 'http://jombay.com/'
-end
+require 'capybara'
+require 'capybara/dsl'
+Capybara.run_server = false
+Capybara.current_driver = :selenium
 
-When(/^I go to Sign Up page$/) do
-  visit 'http://jombay.com/'
+When(/^I go to Home Page$/) do
+  Capybara.app_host = 'http://jombay.com/'
 end
 
 When(/^I follow "(.*?)"$/) do |link|
-  visit 'http://jombay.com/'
   click_link link
 end
 
 When(/^I fill in "(.*?)" with "(.*?)"$/) do |field, text|
+	visit 'http://jombay.com/'
   fill_in(field, :with => text)
 end
 
 When(/^I press "(.*?)"$/) do |button|
- click_button button
+	puts "Signing up"
+	click_button button
 end
 
 Then(/^I should be on "(.*?)"$/) do |arg1|

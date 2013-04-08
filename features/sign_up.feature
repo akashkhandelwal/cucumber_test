@@ -5,7 +5,6 @@ Feature: Test Sign up page
 
 	Scenario: Register using Email
 		When I go to Home Page
-		And I go to Sign Up page
 			And I follow "Register here"
 			And I fill in "Name" with "User"
 			And I fill in "Email" with "user@jombay.com"
