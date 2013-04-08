@@ -4,18 +4,41 @@
 # instead of editing this one. Cucumber will automatically load all features/**/*.rb
 # files.
 
+
+begin require 'rspec/expectations'; rescue LoadError; require 'spec/expectations'; end
+
 require 'net/http'
 require 'uri'
 require 'rubygems'
+
 require "bundler"
 require 'bundler/setup'
+
 require 'capybara'
+require 'capybara/dsl'
+require 'capybara/cucumber'
+
+Capybara.app_host = 'http://jombay.com/' 
+World(Capybara)
+
 Bundler.setup
 Bundler.require
 
 Before('@ignore-hidden-elements') do
   Capybara.ignore_hidden_elements = true
 end
+
+if ENV['HEADLESS'] == 'true'
+  require 'headless'
+
+  headless = Headless.new
+  headless.start
+
+  at_exit do
+    headless.destroy
+  end
+end
+
 
 # require 'cucumber/rails'
 # require 'ruby-debug'
@@ -79,13 +102,3 @@ end
 #   end
 #
 
-if ENV['HEADLESS'] == 'true'
-  require 'headless'
-
-  headless = Headless.new
-  headless.start
-
-  at_exit do
-    headless.destroy
-  end
-end
